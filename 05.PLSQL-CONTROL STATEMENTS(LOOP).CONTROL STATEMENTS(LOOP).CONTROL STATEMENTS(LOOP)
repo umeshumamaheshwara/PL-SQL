@@ -1,0 +1,392 @@
+CONTROL STATEMENTS(LOOP):
+  Control statements using LOOP are used to repeat a block of code multiple times until a certain condition is met
+
+ 🔸Types of Loops in PL/SQL:
+        1) SIMPLE LOOP
+        2) WHILE  LOOP
+        3) FOR LOOP 
+
+
+1) SIMPLE LOOP
+ Here the body of statements is executed repeatedly
+SYNTAX:
+
+ LOOP
+   //STATMENTS
+ END LOOP;
+
+This loop is also called as infinte loop
+
+To exit from infite loop we are using 2 methods
+
+1) EXIT WHEN TRUECONDITION;
+
+2) IF CONDITION THEN
+   EXIT ;
+   END ;
+
+🔸 Example 1: Print numbers from 1 to 10 
+
+   DECLARE
+   	NUM NUMBER:=&N;
+   BEGIN
+   	LOOP
+     	DBMS_OUTPUT.PUT_LINE(NUM);
+       	NUM:=NUM+1;
+     	EXIT WHEN NUM>10;
+   	END LOOP;
+   END;
+   /
+
+OR
+
+DECLARE
+     V_NUM NUMBER:=1;
+BEGIN
+      LOOP
+         DBMS_OUTPUT.PUT_LINE(NUM);
+            IF (NUM>=10) THEN
+              EXIT;
+            END IF;
+         NUM:=NUM+1;
+       END LOOP;
+   END;
+/
+
+🔸 Example 2: Print squares of numbers from 1 to 3
+
+DECLARE
+   x NUMBER := 1;
+BEGIN
+   LOOP
+      DBMS_OUTPUT.PUT_LINE('Square of ' || x || ' = ' || x*x);
+      x := x + 1;
+      EXIT WHEN x > 3;
+   END LOOP;
+END;
+/
+
+
+2)WHILE LOOP
+Here body of the statements are executed repeatedly until condition get false
+
+SYNTAX:
+    WHILE condition LOOP
+       -- Statements
+    END LOOP;
+
+🔸 Example 1: Print numbers from 1 to 10
+
+DECLARE
+  N NUMBER :=1 ;
+BEGIN
+  WHILE N<=10 LOOP
+       DBMS_OUTPUT.PUT_LINE(N);
+       N := N+1;
+  END LOOP;
+END ;
+/
+
+🔸 Example 2: Calculate factorial of a number
+
+DECLARE
+   n NUMBER := 5;
+   fact NUMBER := 1;
+BEGIN
+   WHILE n > 0 LOOP
+      fact := fact * n;
+      n := n - 1;
+   END LOOP;
+   DBMS_OUTPUT.PUT_LINE('Factorial = ' || fact);
+END;
+/
+
+3.FOR LOOP
+In pl/sql, a for loop is a control structure that allows you to iterate over a range of values or a cursor result set
+
+SYNTAX:
+
+   For Counter In Lower_Bound..Upper_Bound Loop
+      -- Statements
+   End Loop;
+
+
+🔸 Example 1: Print 1 to 10 using FOR LOOP
+  
+DECLARE
+    N NUMBER :=10 ;
+BEGIN
+   FOR I IN 1..N LOOP
+     DBMS_OUTPUT.PUT_LINE(N);
+   END LOOP;
+END;
+/
+
+OR 
+
+BEGIN
+   FOR I IN 1..10 LOOP
+     DBMS_OUTPUT.PUT_LINE(N);
+   END LOOP;
+END;
+/
+
+🔸 Example 2: Reverse countdown from 5 to 1
+
+BEGIN
+   FOR i IN REVERSE 1..5 LOOP
+      DBMS_OUTPUT.PUT_LINE('Countdown: ' || i);
+   END LOOP;
+END;
+
+🔸 Example 3: Write a PL/SQL program to calculate the sum of numbers from 1 to 5.
+  
+DECLARE
+     V_SUM NUMBER := 0;
+BEGIN
+     FOR I IN 1..5 LOOP
+        V_SUM := V_SUM + I;
+     END LOOP;
+    DBMS_OUTPUT.PUT_LINE('THE SUM OF NUMBERS FROM 1 TO 5 IS: ' || V_SUM);
+END;
+/
+
+pattern : 
+SET SERVEROUTPUT ON FORMAT WRAPPED:
+
+
+
+🔸 Pattern 1: Right-Angled Star Triangle
+
+*
+**
+***
+****
+*****
+
+DECLARE
+   i NUMBER;
+   j NUMBER;
+   n NUMBER := 5; -- number of rows
+BEGIN
+   FOR i IN 1..n LOOP
+      FOR j IN 1..i LOOP
+         DBMS_OUTPUT.PUT('*');
+      END LOOP;
+      DBMS_OUTPUT.NEW_LINE;
+   END LOOP;
+END;
+/
+
+🔸 Q2. Write a PL/SQL program to print a reverse right-angled triangle using stars (*) for a given number of rows (n = 5).
+*****
+****
+***
+**
+*
+
+DECLARE
+   i NUMBER;
+   j NUMBER;
+   n NUMBER := 5; -- Number of rows
+BEGIN
+   FOR i IN REVERSE 1..n LOOP 
+      FOR j IN 1..i LOOP     
+         DBMS_OUTPUT.PUT('*');
+      END LOOP;
+      DBMS_OUTPUT.NEW_LINE;    -- Move to next line
+   END LOOP;
+END;
+/
+
+
+🔸 Q3. Write a PL/SQL program to print the following right-aligned triangle of stars using nested loops:
+
+    *
+   **
+  ***
+ ****
+*****
+
+DECLARE
+   i NUMBER;
+   j NUMBER;
+   n NUMBER := 5;
+BEGIN
+   FOR i IN 1..n LOOP
+      -- Print leading spaces
+      FOR j IN 1..(n - i) LOOP
+         DBMS_OUTPUT.PUT(' ');
+      END LOOP;
+
+      -- Print stars
+      FOR j IN 1..i LOOP
+         DBMS_OUTPUT.PUT('*');
+      END LOOP;
+
+      -- Move to next line
+      DBMS_OUTPUT.NEW_LINE;
+   END LOOP;
+END;
+/
+
+
+
+ASSIGNMENT :
+
+🔸 Q1. Write a PL/SQL program to calculate the sum of numbers from 1 to N (use a variable for N).
+
+        DECLARE
+           N NUMBER :=&N;
+           SUM_RES NUMBER :=0;
+        BEGIN 
+           FOR I IN 1 .. N LOOP 
+                SUM_RES  := SUM_RES + I;
+           END LOOP;
+           DBMS_OUTPUT.PUT_LINE(SUM_RES);
+        END;
+        /
+
+       
+
+🔸 Q2. Write a PL/SQL program to find the sum of all even numbers between 1 and 20.
+         
+              DECLARE 
+                 SUM_RES NUMBER := 0;
+              BEGIN 
+                FOR I IN 1 .. 20 LOOP
+                IF MOD(I,2) = 0 THEN 
+                   SUM_RES := SUM_RES + I;
+                END IF;
+                END LOOP;
+                DBMS_OUTPUT.PUT_LINE(SUM_RES);
+              END;
+               /
+   
+              
+🔸 Q3. Write a PL/SQL program to find the sum of all odd numbers between 1 and 15.
+             
+             DECLARE 
+                 SUM_RES NUMBER := 0;
+              BEGIN 
+                FOR I IN 1 .. 15 LOOP
+                IF MOD(I,2) != 0 THEN 
+                   SUM_RES := SUM_RES + I;
+                END IF;
+                END LOOP;
+                DBMS_OUTPUT.PUT_LINE(SUM_RES);
+              END;
+               /
+
+
+       
+🔸 Q4. Write a PL/SQL block to display the sum of digits of a given number (e.g., 123 → 1+2+3 = 6). 
+
+
+
+                DECLARE
+                    NUM     NUMBER :=123;
+                    SUM_RES NUMBER :=0;
+                    REM     NUMBER(10);
+                BEGIN
+                    WHILE NUM != 0 LOOP
+                    REM := MOD(NUM,10);
+                    SUM_RES := SUM_RES + REM;
+                    NUM := NUM / 10;
+                    END LOOP;
+                    DBMS_OUTPUT.PUT_LINE(SUM_RES);
+                END;
+                /
+                
+                    
+                    
+
+          
+             
+             
+
+🔸 Q5. Write a PL/SQL program to display the multiplication table of a given number (e.g., 5 × 1 to 10).
+
+               DECLARE 
+                  MUL NUMBER(10):=&NO;
+               BEGIN
+                  FOR I IN 1 .. 10 LOOP
+                  DBMS_OUTPUT.PUT_LINE(MUL ||'X' || I || '=' || MUL*I );
+                  END LOOP;
+               END;
+               /
+
+
+🔸Q6. Pattern : Number Triangle
+O/P :
+--------
+1
+12
+123
+1234
+12345
+                 
+           
+                BEGIN
+                 FOR I IN 1 .. 5 LOOP
+      		 FOR J IN 1 .. I LOOP
+         	 DBMS_OUTPUT.PUT(J || ' ');
+      		 END LOOP;
+      		 DBMS_OUTPUT.PUT_LINE('');  
+                 END LOOP;
+		 END;
+                 /
+
+           
+
+
+           
+
+🔸 Q7. Pattern : Floyd’s Triangle
+O/P :
+-------
+1
+2 3
+4 5 6
+7 8 9 10
+
+
+             DECLARE
+    		NUM NUMBER := 1;  
+	     BEGIN
+    		FOR I IN 1 .. 4 LOOP   
+        	FOR J IN 1 .. I LOOP
+            	DBMS_OUTPUT.PUT(NUM || ' ');
+            	NUM := NUM + 1;
+        	END LOOP;
+        	DBMS_OUTPUT.PUT_LINE(''); 
+    		END LOOP;
+		END;
+		/
+
+
+🔸 Q8.Pattern : Star and Space Pattern
+O/P :
+-------
+* * * * *
+*       *
+*       *
+*       *
+* * * * *
+
+🔸 Q9.Pattern : Centered Star Pyramid
+O/P :
+-------
+
+    *
+   ***
+  *****
+ *******
+*********
+
+
+
+
+
+
+
