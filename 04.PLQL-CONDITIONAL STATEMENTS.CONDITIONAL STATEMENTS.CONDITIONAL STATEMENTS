@@ -1,0 +1,395 @@
+CONDITIONAL STATEMENTS (IF);
+
+Conditional Statements in PL/SQL are used to make decisions in the program based on true or false conditions.
+
+🔺 Types of IF Statements in PL/SQL:
+	🔸 IF 
+	🔸 IF ELSE 
+	🔸 ELSIF 
+
+
+
+🔺 IF Statement
+------------------
+	The IF statement is used to execute a block of code only when a condition is true.
+
+SYNTAX:
+	IF CONDITION THEN 
+	   -- code to run
+	END IF ;
+Example: 
+
+✅ Write a PL/SQL block to check if a person is eligible to vote (age ≥ 18).
+
+DECLARE
+   v_age NUMBER := 20;
+BEGIN
+   IF v_age >= 18 THEN
+      DBMS_OUTPUT.PUT_LINE('Eligible to vote');
+   END IF;
+END;
+/
+
+✅ Write a PL/SQL block to display “High Salary” if salary is more than 40,000.
+
+DECLARE
+   v_salary NUMBER := 50000;
+BEGIN
+   IF v_salary > 40000 THEN
+      DBMS_OUTPUT.PUT_LINE('High Salary');
+   END IF;
+END;
+/
+
+✅ Write a PL/SQL program to print “Topper!” if marks is equal to 95.
+
+DECLARE
+   v_marks NUMBER := 95;
+BEGIN
+   IF v_marks = 95 THEN
+      DBMS_OUTPUT.PUT_LINE('Topper!');
+   END IF;
+END;
+/
+
+🔺 IF...ELSE Statement 
+------------------------
+ Executes one block of code if the condition is true, and another block if it is false.
+  
+SYNTAX:
+	IF CONDITION THEN 
+	  -- true block
+	ELSE 
+	     -- false block
+	END IF ;
+
+✅ Check if login is successful. Print "Login Successful" if true, otherwise "Login Failed".
+
+DECLARE
+   v_login_status BOOLEAN := TRUE;
+BEGIN
+   IF v_login_status THEN
+      DBMS_OUTPUT.PUT_LINE('Login Successful');
+   ELSE
+      DBMS_OUTPUT.PUT_LINE('Login Failed');
+   END IF;
+END;
+/
+
+✅ Write a PL/SQL block to check if temperature is greater than 30. If true, print "It is Hot", else "It is Cool".
+
+DECLARE
+   v_temperature NUMBER := 25;
+BEGIN
+   IF v_temperature > 30 THEN
+      DBMS_OUTPUT.PUT_LINE('It is Hot');
+   ELSE
+      DBMS_OUTPUT.PUT_LINE('It is Cool');
+   END IF;
+END;
+/
+
+✅  Write a PL/SQL program to check account balance. If balance > 0, print “Balance Available”; else, “Insufficient Balance”.
+
+DECLARE
+   v_balance NUMBER := 0;
+BEGIN
+   IF v_balance > 0 THEN
+      DBMS_OUTPUT.PUT_LINE('Balance Available');
+   ELSE
+      DBMS_OUTPUT.PUT_LINE('Insufficient Balance');
+   END IF;
+END;
+/
+
+🔺 IF...ELSIF...ELSE Statement
+------------------------------
+  Checks multiple conditions one by one. Executes the block for the first true condition. If none match, runs the ELSE block
+
+SYNTAX:
+	IF CONTITION1 THEN
+	     STATEMENTS ;
+	ELSIF CONDITION2 THEN 
+	    STATEMENTS ;
+	ELSIF CONDITION2 THEN 
+	    STATEMENTS ;
+	ELSIF CONDITION2 THEN 
+	    STATEMENTS ;
+	ELSE 
+	    STATEMENTS ;
+	END IF ;
+	/
+
+✅ Write a PL/SQL block to assign grade based on score:
+	A if ≥90
+	B if ≥75
+	C if ≥60
+	F otherwise
+
+DECLARE
+   v_score NUMBER := 72;
+BEGIN
+   IF v_score >= 90 THEN
+      DBMS_OUTPUT.PUT_LINE('Grade: A');
+   ELSIF v_score >= 75 THEN
+      DBMS_OUTPUT.PUT_LINE('Grade: B');
+   ELSIF v_score >= 60 THEN
+      DBMS_OUTPUT.PUT_LINE('Grade: C');
+   ELSE
+      DBMS_OUTPUT.PUT_LINE('Grade: F');
+   END IF;
+END;
+/
+
+✅ Based on the day of the week, print:
+
+	“Start of the week” for Monday
+	“Weekend is coming” for Friday
+	“Holiday!” for Sunday
+	“Normal working day” for others
+
+DECLARE
+   v_day VARCHAR2(10) := 'Sunday';
+BEGIN
+   IF v_day = 'Monday' THEN
+      DBMS_OUTPUT.PUT_LINE('Start of the week');
+   ELSIF v_day = 'Friday' THEN
+      DBMS_OUTPUT.PUT_LINE('Weekend is coming');
+   ELSIF v_day = 'Sunday' THEN
+      DBMS_OUTPUT.PUT_LINE('Holiday!');
+   ELSE
+      DBMS_OUTPUT.PUT_LINE('Normal working day');
+   END IF;
+END;
+/
+
+✅ Based on the hour of the day, print:
+	“Good Morning” for hour < 12
+	“Good Afternoon” for hour < 18
+	“Good Evening” for hour ≥ 18
+
+DECLARE
+   v_hour NUMBER := 14;
+BEGIN
+   IF v_hour < 12 THEN
+      DBMS_OUTPUT.PUT_LINE('Good Morning');
+   ELSIF v_hour < 18 THEN
+      DBMS_OUTPUT.PUT_LINE('Good Afternoon');
+   ELSE
+      DBMS_OUTPUT.PUT_LINE('Good Evening');
+   END IF;
+END;
+/
+
+
+Get the values from the user if the value is greater then or equal 18 then ‘you are eligible to vote ‘  else  ‘you are not  eligible to vote ‘ display it 
+
+DECLARE
+    DOB DATE := '&DOB' ;
+    AGE NUMBER ;
+BEGIN
+  AGE :=TO_NUMBER(TO_CHAR(SYSDATE,'YY')-TO_CHAR(DOB,'YY'));
+      IF  AGE >= 18 THEN
+        DBMS_OUTPUT.PUT_LINE( 'YOU ARE ELIGIBLE TO VOTE : ' || AGE ) ;
+     ELSE
+        DBMS_OUTPUT.PUT_LINE( 'YOU ARE NOT ELIGIBLE TO VOTE : ' || AGE);
+      END IF ;
+    END ;
+/
+
+
+ASSIGNMENT :
+
+🔸 Q1. Write a PL/SQL program to check whether a number is Even or Odd.
+
+      DECLARE
+ 	  NUM NUMBER := &NO;
+      BEGIN
+  	 IF MOD(NUM,2) = 0 THEN
+           DBMS_OUTPUT.PUT_LINE('EVEN NUMBER');
+   	ELSE
+     	 DBMS_OUTPUT.PUT_LINE('ODD NUMBER');
+       END IF;
+     END ;
+     /
+
+ 
+🔸 Q2. Write a PL/SQL block to find the largest of three numbers.
+
+    DECLARE
+  	A NUMBER := 10;
+  	B NUMBER :=20;
+  	C NUMBER :=30;
+    BEGIN
+   	IF A > B AND A > C THEN
+      	     DBMS_OUTPUT.PUT_LINE(A ||'IS GREATEST');
+   	ELSIF B > A AND B > C THEN
+     	      DBMS_OUTPUT.PUT_LINE(B ||'IS GREATEST');
+   	ELSE
+      	      DBMS_OUTPUT.PUT_LINE(C ||'IS GREATEST');
+	END IF;
+	END;
+	/
+       
+🔸 Q3. Write a program to check whether a number is Positive, Negative, or Zero.
+
+       DECLARE
+    	    NUM NUMBER := &NO;
+       BEGIN
+           IF NUM = 0 THEN
+        	  DBMS_OUTPUT.PUT_LINE('GIVEN NUMBER IS ZERO');
+    	  ELSIF NUM > 0 THEN
+        	  DBMS_OUTPUT.PUT_LINE('IT IS POSITIVE');
+    	  ELSE
+                        DBMS_OUTPUT.PUT_LINE('IT IS NEGATIVE');
+                    END IF;
+      END;
+              /
+
+       
+
+🔸 Q4. Write a PL/SQL block to check whether a given year is a Leap Year or not.
+
+         DECLARE
+             YEAR  NUMBER :=&LEAP ;
+         BEGIN
+             IF MOD(YEAR,4) = 0 AND MOD(YEAR,100) !=0 OR MOD(YEAR,400)=0 THEN
+                DBMS_OUTPUT.PUT_LINE('GIVEN  YEAR IS LEAP YEAR');
+                                 ELSE
+                                       DBMS_OUTPUT.PUT_LINE('GIVEN YEAR IS NOT A LEAP YEAR'); 
+             END IF;
+         END;
+         /
+                
+
+
+🔸 Q5. Write a PL/SQL program to check whether a number is divisible by both 5 and 11.
+
+         DECLARE
+                         NUM NUMBER := &NO;
+                    BEGIN
+               	  IF MOD(NUM , 5) =0  AND MOD(NUM , 11) = 0 THEN
+               	     DBMS_OUTPUT.PUT_LINE('THE GIVEN NUMBER IS DIVISIBLE BY 5 AND 11');
+          ELSE 
+          DBMS_OUTPUT.PUT_LINE('THE GIVEN NUMBER IS NOT DIVISIBLE BY 5 AND  11');
+                   END IF;
+                   END;
+                   /
+
+ 
+🔸 Q6. Write a PL/SQL block that prints the weekday name based on a number (1–7). If the number is not valid, print "Invalid Day".
+   
+       DECLARE
+    	  DAY_NUM  NUMBER := &DAY_NUMBER;
+       BEGIN
+                    CASE DAY_NUM
+                          WHEN 1 THEN
+            	  DBMS_OUTPUT.PUT_LINE('Sunday');
+                         WHEN 2 THEN
+                         DBMS_OUTPUT.PUT_LINE('Monday');
+                         WHEN 3 THEN
+                         DBMS_OUTPUT.PUT_LINE('Tuesday');
+                         WHEN 4 THEN
+                         DBMS_OUTPUT.PUT_LINE('Wednesday');
+                         WHEN 5 THEN
+                         DBMS_OUTPUT.PUT_LINE('Thursday');
+                         WHEN 6 THEN
+                        DBMS_OUTPUT.PUT_LINE('Friday');
+                        WHEN 7 THEN
+                        DBMS_OUTPUT.PUT_LINE('Saturday');
+                 ELSE
+                       DBMS_OUTPUT.PUT_LINE('Invalid Day');
+               END CASE;
+      END;
+               /
+
+           
+    
+ 
+🔸 Q7. Write a PL/SQL program to check whether a given character is a Vowel or Consonant.
+     
+           DECLARE 
+                                   CH VARCHAR2(1) := '&CHARACTER';
+           BEGIN 
+                                  IF CH IN ('A', 'E', 'I', 'O', 'U') THEN 
+        	      DBMS_OUTPUT.PUT_LINE('VOWEL');
+    	   ELSE
+        	     DBMS_OUTPUT.PUT_LINE('NOT');
+   	   END IF;
+	  END;
+                         /
+
+           
+🔸 Q8. Write a PL/SQL block to print the Grade of a student based on the marks:
+	A → 90 and above
+	B → 75 to 89
+	C → 60 to 74
+	D → 35 to 59
+	F → below 35
+
+	DECLARE 
+   	       MARKS NUMBER := &NUM;
+	BEGIN 
+    	     IF MARKS BETWEEN 90 AND 100 THEN 
+        	  DBMS_OUTPUT.PUT_LINE('GRADE : A');
+    	  ELSIF MARKS BETWEEN 75 AND 89 THEN 
+        	     DBMS_OUTPUT.PUT_LINE('GRADE : B');
+                         ELSIF MARKS BETWEEN 60 AND 74 THEN 
+        	  DBMS_OUTPUT.PUT_LINE('GRADE : C');
+    	  ELSIF MARKS BETWEEN 35 AND 59 THEN 
+        	     DBMS_OUTPUT.PUT_LINE('GRADE : D');
+    	  ELSIF MARKS BETWEEN 0 AND 34 THEN 
+        	  DBMS_OUTPUT.PUT_LINE('FAIL');
+    	  ELSE 
+        	  DBMS_OUTPUT.PUT_LINE('INVALID ENTRY');
+    	  END IF;
+        END;
+	/
+
+🔸 Q9. Write a PL/SQL program to check whether a given number is a multiple of 3 or 7 or both.
+✅ Example:
+	Input: 21 → Output: Multiple of both 3 and 7
+	Input: 9 → Output: Multiple of 3
+	Input: 14 → Output: Multiple of 7
+	Input: 8 → Output: Not a multiple of 3 or 7
+
+
+       DECLARE 
+         INPUT NUMBER:=&NUM;
+       BEGIN
+         IF MOD(INPUT,3) =0 AND MOD(INPUT,7)=0 THEN 
+            DBMS_OUTPUT.PUT_LINE('MULTIPLES OF BOTH 3 AND 7');
+                      ELSIF MOD(INPUT,3) = 0  THEN
+             DBMS_OUTPUT.PUT_LINE('MULTIPLES OF 3 ONLY');
+                       ELSIF MOD(INPUT,7) = 0  THEN
+             DBMS_OUTPUT.PUT_LINE('MULTIPLES OF 7 ONLY');
+                       ELSE
+             DBMS_OUTPUT.PUT_LINE('NEITHER MULTIPLES OF 3 AND 7');
+                       END IF;
+                  END;
+                   /
+                       
+🔸 Q10. Write a PL/SQL program to check if three given angles can form a valid triangle or not.
+	A triangle is valid if the sum of all three angles is exactly 180.
+
+
+          DECLARE
+                              angle1 NUMBER := &A1;
+                             angle2 NUMBER := &A2;
+                             angle3 NUMBER := &A3;
+                             total  NUMBER;
+         BEGIN
+                              total := angle1 + angle2 + angle3;
+
+                       IF total = 180 THEN
+                       DBMS_OUTPUT.PUT_LINE('Valid Triangle');
+                ELSE
+                      DBMS_OUTPUT.PUT_LINE('Invalid Triangle');
+                END IF;
+      END;
+                /
+
+
+        
+
+
