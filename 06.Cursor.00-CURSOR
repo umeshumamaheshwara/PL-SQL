@@ -1,4 +1,5 @@
 CURSOR 
+Cursor is used to print multiple records or It is points to the next record.
 Cursor Is Also a Private Sql Memory Area/Active memory set area/Context Memory area 
 Which Is Used To Process Multiple Records  
 Cursor will execute Record By Record / row by row Process .
