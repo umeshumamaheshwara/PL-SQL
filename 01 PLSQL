@@ -164,10 +164,60 @@ WELCOME TO PLSQL WORLD :ARCHANA
 	/
 
 TASK : 
- 1) Write a PL/SQL block that declares a variable v_city, stores the value 'Chennai' into it, and displays it.
+ 1) Write a PL/SQL block that declares a variable v_city, stores the value 'Chennai' into it, and displays it. 
+           DECLARE 
+                V_CITY VARCHAR(25) :='CHENNAI' ;
+           BEGIN
+                DBMS_OUTPUT.PUT_LINE(V_CITY);
+           END;
+           /
+
  2) Declare two variables a and b, assign values 10 and 20, calculate the sum and display the result.
+           DECLARE 
+                A NUMBER :=10;
+                B NUMBER :=20;
+                RESULT NUMBER :=A+B;
+           BEGIN 
+               DBMS_OUTPUT.PUT_LINE(RESULT);
+           END;
+            /
+
  3) Write an anonymous block that declares a variable for your name and prints a welcome message like:
     EXAMPLE : 
         OUTPUT :  Welcome, Dharma!
+
+         DECLARE 
+              MESSAGE VARCHAR(25) :='WELCOME,' ;
+              NAME    VARCHAR(25) :='&NAME' ;
+         BEGIN
+              DBMS_OUTPUT.PUT_LINE(MESSAGE || NAME );
+         END;
+          /
+          
+              
+
  4) Create a PL/SQL block that uses := to assign the value 'PL/SQL is powerful' to a variable and prints it.
+        DECLARE 
+            MESSAGE VARCHAR(25) :='PL/SQL IS POWERFUL';
+        BEGIN
+            DBMS_OUTPUT.PUT_LINE(MESSAGE);
+        END;
+        /
+
+
+
  5) Write a PL/SQL block with a nested block inside. Declare a variable in the outer block (v_outer) and another in the inner block (v_inner). Print both values inside the inner block.
+          DECLARE 
+              OUTER_BLOCK VARCHAR(25) :='OUTER BLOCK';
+          BEGIN 
+                  DBMS_OUTPUT.PUT_LINE(OUTER_BLOCK);
+              DECLARE
+                  INNER_BLOCK VARCHAR(25) :='INNER BLOCK';
+              BEGIN
+                 DBMS_OUTPUT.PUT_LINE(INNER_BLOCK);
+                DBMS_OUTPUT.PUT_LINE('Accessing Outer Block Value inside Inner Block: ' || OUTER_BLOCK);
+              END;
+
+             
+         END;
+         /
