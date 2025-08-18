@@ -1,0 +1,41 @@
+SEQUENCE :
+---------------
+
+--> A Sequence is a database object that automatically generates a series of unique numbers.
+--> Sequences are useful for generating values for primary keys 
+--> Sequences can used with help of NEXTVAL
+
+SYNTAX:
+-----------
+
+CREATE SEQUENCE sequence_name
+START WITH initial_value
+INCREMENT BY increment_value
+[MINVALUE min_value]
+[MAXVALUE max_value] ;
+
+
+EX:
+
+CREATE SEQUENCE EMP_SEQ
+START WITH 1000
+INCREMENT BY 1 ;
+
+TO USE THE SEQUENCE 
+----------------------------
+
+--> SEQUENCE_NAME.NEXTVAL 
+
+ex:
+
+SELECT EMP_SEQ.NEXTVAL FROM DUAL ;
+
+INSERT INTO EMP(EMPNO,ENAME) VALUES (EMP_SEQ.NEXTVAL,'KUSHAL') ;
+
+HOW TO DROP sequence :
+-----------------------------
+drop sequence  sequence_name ;
+
+EX:
+
+drop sequence  s1 ;
