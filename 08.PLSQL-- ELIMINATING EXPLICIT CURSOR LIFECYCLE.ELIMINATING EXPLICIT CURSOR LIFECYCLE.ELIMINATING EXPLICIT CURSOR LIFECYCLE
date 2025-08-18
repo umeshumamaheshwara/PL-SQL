@@ -1,0 +1,40 @@
+ELIMINATING EXPLICIT CURSOR LIFECYCLE;
+
+Using Cursor For Loop We Are Eliminating Explicit Cursor Lifecycle.
+When We Are Using Cursor For Loop Internally Pl/Sql Engine Uses Open ,Fetch, Close Statements .
+
+CURSOR FOR LOOP:
+
+
+
+
+
+SYNTAX:
+
+FOR INDEX_VARIABLE IN CURSOR_NAME
+    LOOP
+          STATEMENTS
+    END LOOP;
+
+This Is Also Called As Shortcut Method Of The Cursor .
+
+EXAMPLE:
+
+DECLARE
+    CURSOR C1 IS SELECT ENAME,SAL FROM EMP ;
+BEGIN
+    FOR I IN C1 LOOP
+        DBMS_OUTPUT.PUT_LINE(I.ENAME|| ' ' ||I.SAL);
+    END LOOP;
+END ;
+/
+We Can Also Eliminate The Declare Section Of The Cursor Using For Loop In The Case We Are Using The Select Statements In Place Of Cursor_Name In The Cursor For Loop
+EXAMPLE:
+
+BEGIN
+    FOR I IN (SELECT * FROM EMP) LOOP
+        DBMS_OUTPUT.PUT_LINE(I.ENAME|| ' ' ||I.SAL);
+     END LOOP;
+END ;
+/
+
