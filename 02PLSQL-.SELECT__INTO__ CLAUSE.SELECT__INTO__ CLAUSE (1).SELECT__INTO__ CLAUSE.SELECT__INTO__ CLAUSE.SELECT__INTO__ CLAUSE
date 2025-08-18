@@ -332,10 +332,18 @@ BEGIN
 END;
 /
 
-
-
-
  10) Create a PL/SQL block to retrieve the employee number, name, and job title for the employee designated as 'MANAGER' and hired in the month of April.
+         DECLARE 
+           V_NUM EMP.EMPNO%TYPE;
+           V_NAME EMP.ENAME%TYPE;
+           V_JOB EMP.JOB%TYPE;  
+         BEGIN 
+            SELECT EMPNO, ENAME, JOB INTO V_NUM, V_NAME, V_JOB FROM EMP WHERE JOB='MANAGER' AND TO_CHAR(HIREDATE,'MON') = 'APR' ;
+            DBMS_OUTPUT.PUT_LINE( V_NUM||' ' ||V_NAME||' '|| V_JOB);
+         END;
+        /
+          
+           
 
 
 
