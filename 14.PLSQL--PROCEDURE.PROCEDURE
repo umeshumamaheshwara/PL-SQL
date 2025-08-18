@@ -1,0 +1,235 @@
+STORED PROCEDURES:-
+--------------------------
+
+A STORED PROCEDURE IS ALSO A NAMED PL/SQL BLOCK THE ACCEPTS SOME INPUT IN THE FORM OF PARAMETERS AND PERFORMS SOME TASK AND MAY OR MAY NOT RETURNS A VALUE
+
+PROCEDURES ARE CREATED TO PERFORM ONE OR MORE DML OPERATIONS OVER DATABASE
+
+PROCEDURE HAVING 2 PARTS :
+
+1)PROCEDURE SPECIFICATION
+2)PROCEDURE BODY
+
+
+IN PROCEDURE SPECIFICATION WE ARE SPECIFYING NAME OF THE PEOCEDURE AND TYPE OF PARAMETERS
+WHERE AS PROCEDURE BODY WE ARE SOLVING THE ACTUAL TASK
+
+SYNTAX:
+
+CREATE OR REPLACE PROCEDURE PROCEDURE_NAME( IF ANY PARAMETERS )
+IS
+<VARIABLES,CURSOR>;
+BEGIN
+STATEMENTS ;
+END ;
+
+
+*****************************************************
+
+EXECUTING A PROCEDURE
+---------------------
+
+METHOD 1:
+SQL> EXEC[UTE] PROCEDURENAME(ACTUAL PARAMETERS);
+
+****************************
+
+METHOD 2:( USING ANNONYMOUS BLOCK)
+SQL>    BEGIN
+PROCEDURE (ACTUAL PARAMETERS);
+END;
+/
+
+***************************
+
+METHOD 3:
+SQL> CALL PROCEDURENAME (ACTUAL PARAMETERS);
+
+***************************************************
+
+HOW TO DROP THE PROCEDURES
+
+DROP PROCRDURE PROCEDURE_NAME;
+
+*****************************************************
+
+HOW TO DISPLAY THE WHOLE PROCEDURE
+
+SELECT TEXT
+FROM USER_SOURCE
+WHERE NAME='PROCEDURE_NAME';
+
+*****************************************************
+
+EXAMPLE :1
+------------------
+
+CREATE OR REPLACE PROCEDURE GREETING(NAME  VARCHAR)
+IS
+BEGIN
+DBMS_OUTPUT.PUT_LINE('WELCOME '||NAME||' TO GOPALAN CO-WORKS');
+END ;
+/
+
+SQL> EXEC GREETING('JOHN');
+
+OUTPUT:
+------------
+
+WELCOME JOHN TO GOPALAN CO-WORKS
+
+*************************************
+
+2 .WRITE A PLSQL STORE PROCEDURE FOR PASSING THE EMPNO AS PARAMETER AND
+   DISPLAY NAME AND SALARY OF THE EMPLOYEES.
+
+create or replace procedure e_name( e number)
+is 
+ v_name varchar(20) ;
+ v_sal number ;
+begin
+ select ename ,sal into v_name ,v_sal
+ from emp
+ where empno = e ;
+  dbms_output.put_line(v_name ||', '||v_sal);
+exception 
+  when no_data_found then 
+    raise_application_error(-20143,'Invalid data');
+end ;
+/
+
+
+
+
+
+3.WRITE A PLSQL STORE PROCEDURE FOR PASSING THE DEPTNO AS PARAMETER AND DISPLAY NAME AND SALARY AND DEPTNO  OF THE EMPLOYEES CORRESPONDING TO THE DEPTNO.
+
+create or replace procedure emp_dept_name(dno int)
+is
+ i emp%rowtype ;
+ cursor c1 is select * from emp where deptno = dno ;
+begin 
+ open c1 ;
+  loop 
+    fetch c1 into i ;
+    exit when  c1%notfound ;
+     dbms_output.put_line(i.ename||', '||i.sal||', '||i.deptno);
+  end loop ;
+ close c1 ;
+end ;
+/
+
+
+
+4.WRITE A PLSQL STORE PROCEDURE to insert the record into the dept table and the column name are deptno,dname ,loc 
+
+create or replace procedure insert_dept(dno int,d_name varchar,loc varchar)
+as
+begin 
+ insert into dept values(dno,d_name,loc);
+ commit ;
+end ;
+/
+
+
+THERE ARE THREEE TYPES OF EXECUTION METHOS SUPPORTED BY PARAMETERS 
+   I) POSITION NOTATIONS 
+  II) NAMED NOTATIONS 
+ III) MIXED NOTATIONS 
+
+     I) POSITION NOTATIONS 
+*****************************
+
+EX: SQL > EXEC DEPT_INSERT(1,'HR','BANGALORE');
+
+     II) NAMED NOTATIONS 
+****************************
+
+      BY USING THE PARAMETR WE CAN PASS THE VALUES ALONG WITH THE (=>) SYMBOL
+
+EX: SQL > EXEC DEPT_INSERT(P_DNAME => 'HR',P_LOC => 'BANGALORE',P_DEPTNO=>2);
+
+    III) MIXED NOTATIONS 
+******************************
+
+ 	IT IS THE COMBINATION OF POSITIONAL AND NAMED NOTATION 
+
+     NOTES : AFTER THE POSITIONAL THEIR CAN BE ALL NAMED NOTATION BUT AFTER THE NAME CANNOT BE POSITIONAL NOTATION
+
+ EX: SQL > EXEC DEPT_INSERT(3,P_DNAME => 'HR',P_LOC => 'BANGALORE',);
+
+**************************************************************************************************************************
+
+
+5.WRITE A PLSQL STORE PROCEDURE to update salary of all  if the job is manager 5% hike or the job is analyst 3% hike else 1% .
+       CREATE OR REPLACE PROCEDURE UPDTE_SALARY
+       AS
+       BEGIN
+          UPDATE EMP SET SAL = CASE  WHEN JOB = 'MANAGER' THEN 	(SAL*0.05)+SAL 
+                                     WHEN JOB = 'ANALYST' THEN 	(SAL*0.03)+SAL
+                                     ELSE (SAL*0.01)+SAL
+                                END;
+                             END;
+                             / 
+
+        
+         
+
+6.WRITE A PLSQL STORE PROCEDURE to delete the emp table record based on empno .
+       CREATE OR REPLACE PROCEDURE DELETE_EMP(NUM NUMBER)
+       AS
+       BEGIN 
+         DELETE FROM EMP 
+         WHERE EMPNO = NUM ;
+       END;
+       /
+
+
+
+-----------------------------------------------------------------------------------------------------------------------------
+
+CREATE OR REPLACE PROCEDURE XYZ
+IS
+NAME EMP.ENAME%TYPE;
+SALARY EMP.SAL%TYPE;
+CURSOR C1 IS SELECT ENAME,SAL FROM EMP;
+BEGIN
+OPEN C1;
+ LOOP
+   FETCH C1 INTO NAME,SALARY;
+   EXIT WHEN C1%NOTFOUND;
+   DBMS_OUTPUT.PUT_LINE( NAME || ' ' ||SALARY);
+ END LOOP;
+END;
+/
+
+
+-----------------------------------------------------------------------------------------------------------------------------
+
+CREATE OR REPLACE PROCEDURE XYZ
+IS
+I EMP%ROWTYPE;
+CURSOR C1 IS SELECT *  FROM EMP;
+BEGIN
+OPEN C1;
+ LOOP
+   FETCH C1 INTO I;
+   EXIT WHEN C1%NOTFOUND;
+   DBMS_OUTPUT.PUT_LINE( I.ENAME || ' ' ||I.SAL);
+ END LOOP;
+END;
+/
+
+-----------------------------------------------------------------------------------------------------------------------------
+
+5.WRITE A PLSQL STORE PROCEDURE to update salary OF ALL THE EMPLOYEES 20%. 
+CREATE OR REPLACE PROCEDURE XYZ(NUM NUMBER)
+ AS
+ BEGIN 
+    UPDATE EMP 
+    SET SAL = (SAL*NUM)+SAL ;
+ END;
+ /
+
+
+
