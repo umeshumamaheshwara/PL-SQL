@@ -1,0 +1,213 @@
+
+FUNCTION:
+---------
+
+--> FUNCTION IS A NAMED PL/SQL BLOCK WHICH IS USED TO SOLVE SOME PERTICULAR TASK. 
+--> A function in PL/SQL is a subprogram that returns a single value
+
+
+FUNCTION ALSO HAVIND 2 PARTS:
+
+1)FUNCTION SPECIFICATION
+2)FUNCTION BODY
+
+
+--> IN FUNCTION SPECIFICATION WE ARE SPECIFYING NAME OF THE FUNCTION AND TYPE OF PARAMETERS
+--> WHERE AS FUNCTION BODY WE ARE SOLVING THE ACTUAL TASK.
+
+**************************************************************************
+SYNTAX:
+-----
+
+CREATE OR REPLACE FUNCTION <FUNCTION_NAME>(PARAMETERS IF ANY)
+RETURN DATATYPE
+  IS/AS
+  <VARIABLES,CURSOR>;
+BEGIN
+  STATEMENTS ;
+  RETURN EXPRESSION ;
+[EXCEPTION]
+  EXCEPTION HANDLING 
+END [FUNCTION_NAME];
+/
+
+
+EXECUTING A FUNCTION
+*********************
+
+METHOD 1:
+---------
+
+SELECT FUNCTION_NAME(PARAMETERS) FROM DUAL ;
+
+---------------------------------------------
+
+
+METHOD 2:( USING ANNONYMOUS BLOCK)
+----------------------------------
+
+
+DECLARE
+VARIABLE_NAME DATATYPE;
+BEGIN
+VARIABLE_NAME :=FUNCTION_NAME(ACTUAL PARAMETERS);
+DBMS_OUTPUT.PUT_LINE(VARIABLE_NAME);
+END;
+/
+
+
+**************************************************
+HOW TO DISPLAY THE CODE OF FUNCTION
+
+SYNTAX:
+
+SELECT TEXT
+FROM USER_SOURCE
+WHERE NAME='FUNCTION_NAME';
+
+**************************************************
+
+HOW TO DROP THE FUNCTION 
+
+SYNTAX:
+
+DROP FUNCTION FUNCTION_NAME;
+
+**************************************************
+
+EXAMPLE :
+create or replace function greeting
+return varchar
+is
+begin 
+ return 'good morning ' ;
+end greeting ;
+/
+
+select greeting() from dual ;
+
+SQL> declare
+  2   g varchar(200);
+  3  begin
+  4   g := greeting() ;
+  5   dbms_output.put_line(g);
+  6  end ;
+  7  /
+good morning
+
+
+select greeting()||  ' '||ename
+from emp ;
+
+
+1.Write a function in PL/SQL that accepts a name as input and returns a greeting message in the format "good morning: <name>".
+
+create or replace function greeting(name varchar)
+return varchar
+is
+begin 
+ return 'good morning :'||name;
+end greeting ;
+/
+
+
+
+select greeting('ananya') from dual ;
+
+select greeting(ename)
+from emp;
+
+
+
+create or replace function get_salary(eid number)
+return number 
+as 
+v_sal number(4);
+begin 
+ select sal into v_sal
+ from emp
+ where empno=eid ;
+  return v_sal ;
+end ;
+/
+
+3.What will be the output of the following PL/SQL block, assuming the function sum_values is already created as shown below?
+
+create or replace function sum_values(a int,b int)
+return int 
+is 
+begin 
+ return a+b 
+end sum_values ;
+/
+
+4. Write a PL/SQL function that takes a department number as input, iterates through employees using a cursor, and returns the name of an employee belonging to the given department.
+
+create or replace function emp_name (dno int)
+return varchar
+is 
+ v_name varchar(20);
+ v_deptno number;
+ v_result varchar(200) := '' ;
+ cursor c1 is select ename ,deptno from emp ;
+begin 
+ open c1 ;
+   loop
+    fetch c1 into v_name,v_deptno  ;
+    exit when c1%notfound ;
+      if v_deptno=dno the 
+        v_result := v_result || v_name ||', ' ;
+      end if ;
+   end loop;
+ close c1 ;
+ return v_result ;
+end;
+/
+
+ASSIGNMENTS : 
+1.Write a PL/SQL stored function named CHECK_EVEN_ODD that accepts a number as an input parameter and returns a message indicating whether the number is EVEN or ODD
+
+2.Write a PL/SQL function named CALCULATOR that takes two numbers (A and B) and a string operator (OP) as input. 
+The function should perform the corresponding arithmetic operation based on the operator provided.
+
+The operator (OP) can be one of the following:
+
+'+' for addition
+
+'-' for subtraction
+
+'*' for multiplication
+
+'/' for division
+
+3.Write a PL/SQL function GET_SAL that takes an employee number (EMPNO) as input and returns the salary (SAL) of that employee.
+If the employee is not found, return NULL
+
+4.Create a function TOTAL_COMP that takes an EMPNO and returns the total compensation of the employee (i.e., SAL + COMM).
+If COMM is NULL, treat it as 0.
+
+5.Write a function GET_JOB_TITLE that accepts an employee number and returns the job title (JOB) of that employee.
+
+6.Create a function COUNT_EMP_BY_DEPT that takes a department number (DEPTNO) and returns the total number of employees in that department
+
+7.Write a PL/SQL stored function named GET_GROSS_SALARY that takes an employee number (EMPNO) as input and returns the Gross Salary of the employee.
+
+Gross Salary = Basic Salary + HRA + DA + PF
+
+---------------------
+
+Basic Salary = SAL (from the EMP table)
+
+HRA (House Rent Allowance) = 10% of SAL
+
+DA (Dearness Allowance) = 10% of SAL
+
+PF (Provident Fund) = 20% of SAL
+
+➤ Requirements:
+
+If the employee is not found in the EMP table, return NULL.
+
+Use appropriate data types and exception handling.
+
+Return the result as a NUMBER.
